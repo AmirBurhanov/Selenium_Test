@@ -25,7 +25,6 @@ public class SearchResultsPage extends BasePage {
 
     public void clickTask() {
         try {
-            // Кликаем по первому найденному элементу
             List<WebElement> results = driver.findElements(POSITIV_SEARCH);
             if (!results.isEmpty()) {
                 results.get(0).click();

@@ -2,7 +2,6 @@ package pages.youtrack;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import pages.base.BasePage;
 
 public class TasksPage extends BasePage {

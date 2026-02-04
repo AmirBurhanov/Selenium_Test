@@ -3,8 +3,8 @@ package pages.youtrack;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import pages.base.BasePage;
+
 
 public class CreateTaskPage extends BasePage {
 
@@ -25,9 +25,9 @@ public class CreateTaskPage extends BasePage {
         return this;
     }
 
-    public CreateTaskPage enterDescription(String description) throws InterruptedException {
+    public CreateTaskPage enterDescription(String description) {
         WebElement editor = waitElementIsVisible(WYSIWYG_EDITOR);
-        Thread.sleep(1000);
+
         editor.click();
         editor.sendKeys(description);
         return this;
@@ -35,7 +35,7 @@ public class CreateTaskPage extends BasePage {
 
     public TaskDetailsPage clickCreate() throws InterruptedException {
         WebElement webElement = waitElementIsVisible(CREATE_BUTTON);
-        Thread.sleep(1000);
+
         webElement.click();
         return new TaskDetailsPage(driver);
     }

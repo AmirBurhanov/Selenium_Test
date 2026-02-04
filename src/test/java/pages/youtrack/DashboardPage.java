@@ -3,10 +3,10 @@ package pages.youtrack;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import pages.base.BasePage;
 
 import javax.swing.*;
+
 
 public class DashboardPage extends BasePage {
 
@@ -20,7 +20,7 @@ public class DashboardPage extends BasePage {
 
     public TasksPage clickTasksButton() throws InterruptedException {
         WebElement tasksButton = waitElementIsVisible(TASKS_BUTTON);
-        Thread.sleep(1000);
+
         tasksButton.click();
         return new TasksPage(driver);
     }
@@ -31,9 +31,8 @@ public class DashboardPage extends BasePage {
        return new CreateTaskPage(driver);
     }
 
-    public DashboardPage clickSearch() throws InterruptedException {
+    public DashboardPage clickSearch() {
         WebElement search = waitElementIsVisible(SEARCH);
-        Thread.sleep(1000);
         search.click();
         return new DashboardPage(driver);
     }
