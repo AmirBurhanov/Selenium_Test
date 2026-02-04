@@ -7,9 +7,7 @@ import org.testng.annotations.Test;
 import pages.youtrack.*;
 import utils.ScreenshotUtils;
 import utils.Wait;
-
 import java.time.Duration;
-
 import static utils.CsvReader.getPassword;
 import static utils.CsvReader.getUsername;
 
@@ -37,7 +35,6 @@ public class FiveTestsYouTrack {
             Assert.assertFalse(currentUrl.contains("login"),
                     "Логин не удался - все еще на странице логина");
 
-            System.out.println("Логин успешен");
 
         } catch (Exception e) {
             ScreenshotUtils.capture(driver, "testLogin", "ERROR");
@@ -86,7 +83,6 @@ public class FiveTestsYouTrack {
                             currentUrl.contains("/issues/") || currentUrl.contains("/agiles/"),
                     "Не перешли на страницу созданной задачи");
 
-            System.out.println("Задача успешно создана");
 
         } catch (InterruptedException e) {
             wait.waitSeconds(driver,3);
@@ -138,7 +134,6 @@ public class FiveTestsYouTrack {
             Assert.assertTrue(found, "Поиск не вернул результатов");
 
             int resultCount = searchResultsPage.getHighlightedResultsCount();
-            System.out.println("Найдено результатов: " + resultCount);
 
             if (resultCount > 0) {
                 String firstResult = searchResultsPage.getFirstHighlightedText();
@@ -147,7 +142,6 @@ public class FiveTestsYouTrack {
                         "Результат не содержит искомый текст");
             }
 
-            System.out.println("Поиск выполнен успешно");
 
         } catch (InterruptedException e) {
             wait.waitSeconds(driver, 3);
@@ -215,8 +209,6 @@ public class FiveTestsYouTrack {
 
             ScreenshotUtils.capture(driver, "deleteTask", "after_deletion");
 
-            System.out.println("Задача успешно удалена");
-
         } catch (InterruptedException e) {
             wait.waitSeconds(driver,3);
             ScreenshotUtils.capture(driver, "deleteTask", "INTERRUPTED");
@@ -274,8 +266,6 @@ public class FiveTestsYouTrack {
             String currentUrl = driver.getCurrentUrl();
             Assert.assertTrue(currentUrl.contains("issues") || currentUrl.contains("dashboard"),
                     "Не вернулись на предыдущую страницу после закрытия");
-
-            System.out.println("Форма создания задачи успешно закрыта");
 
         } catch (InterruptedException e) {
             wait.waitSeconds(driver,2);
