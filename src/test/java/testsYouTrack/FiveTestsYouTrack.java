@@ -74,7 +74,6 @@ public class FiveTestsYouTrack {
             ScreenshotUtils.capture(driver, "testFullTaskCreationFlow", "after_create");
 
             String currentUrl = driver.getCurrentUrl();
-            System.out.println("Текущий URL: " + currentUrl);
 
             Assert.assertFalse(currentUrl.contains("create") || currentUrl.contains("new"),
                     "Все еще на странице создания задачи");
@@ -137,7 +136,6 @@ public class FiveTestsYouTrack {
 
             if (resultCount > 0) {
                 String firstResult = searchResultsPage.getFirstHighlightedText();
-                System.out.println("Первый результат: " + firstResult);
                 Assert.assertTrue(firstResult.contains(SEARCH_QUERY),
                         "Результат не содержит искомый текст");
             }
