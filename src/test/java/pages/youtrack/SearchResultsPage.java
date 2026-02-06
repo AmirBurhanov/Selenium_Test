@@ -1,5 +1,6 @@
 package pages.youtrack;
 
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,8 +18,17 @@ public class SearchResultsPage extends BasePage {
     public boolean searchResult() {
         try {
             List<WebElement> results = driver.findElements(POSITIV_SEARCH);
-            return !results.isEmpty() && results.get(0).isDisplayed();
+            boolean hasResults = !results.isEmpty() && results.get(0).isDisplayed();
+
+            // Логирование в Allure
+            Allure.addAttachment("Результаты поиска",
+                    STR."""
+Найдено элементов: \{results.size()}
+Есть результаты: \{hasResults}""");
+
+            return hasResults;
         } catch (Exception e) {
+            Allure.addAttachment("Ошибка поиска", "Исключение: " + e.getMessage());
             return false;
         }
     }
@@ -27,18 +37,25 @@ public class SearchResultsPage extends BasePage {
         try {
             List<WebElement> results = driver.findElements(POSITIV_SEARCH);
             if (!results.isEmpty()) {
+                Allure.addAttachment("Клик по задаче", "Кликаем по первому результату поиска");
                 results.get(0).click();
+            } else {
+                Allure.addAttachment("Нет результатов", "Нечего кликать - список результатов пуст");
             }
         } catch (Exception e) {
-            System.err.println("Не удалось кликнуть по задаче: " + e.getMessage());
+            Allure.addAttachment("Ошибка клика по задаче", STR."Исключение: \{e.getMessage()}");
+            throw new RuntimeException("Не удалось кликнуть по задаче", e);
         }
     }
 
     public int getHighlightedResultsCount() {
         try {
             List<WebElement> results = driver.findElements(POSITIV_SEARCH);
-            return results.size();
+            int count = results.size();
+            Allure.addAttachment("Количество результатов", String.valueOf(count));
+            return count;
         } catch (Exception e) {
+            Allure.addAttachment("Ошибка подсчета результатов", STR."Исключение: \{e.getMessage()}");
             return 0;
         }
     }
@@ -47,11 +64,17 @@ public class SearchResultsPage extends BasePage {
         try {
             List<WebElement> results = driver.findElements(POSITIV_SEARCH);
             if (!results.isEmpty()) {
-                return results.get(0).getText();
+                String text = results.get(0).getText();
+                Allure.addAttachment("Текст первого результата", text);
+                return text;
             }
+            Allure.addAttachment("Пустые результаты", "Список результатов пуст");
             return "";
         } catch (Exception e) {
+            Allure.addAttachment("Ошибка получения текста", STR."Исключение: \{e.getMessage()}");
             return "";
         }
     }
+
+
 }

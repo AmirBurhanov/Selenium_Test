@@ -1,13 +1,15 @@
 package testsYouTrack;
 
 import basic.BasicActions;
-import org.openqa.selenium.*;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.youtrack.*;
 import utils.ScreenshotUtils;
 import utils.Wait;
 import java.time.Duration;
+import static pages.base.BasePage.open;
 import static utils.CsvReader.getPassword;
 import static utils.CsvReader.getUsername;
 
@@ -19,15 +21,13 @@ public class FiveTestsYouTrack {
         WebDriver driver = BasicActions.createDriver();
 
         try {
-            YouTrackLogin loginPage = new YouTrackLogin(driver);
-            loginPage.open("http://localhost:8080/");
-
+            YouTrackLogin youTrackLogin = new YouTrackLogin(driver);
+            open();
             ScreenshotUtils.capture(driver, "testLogin", "login_page");
+            youTrackLogin.enterUsername(getUsername())
+                            .enterPassword(getPassword())
+                                    .clickLogin();
 
-            DashboardPage dashboard = loginPage.login(
-                    getUsername(),
-                    getPassword()
-            );
 
             ScreenshotUtils.capture(driver, "testLogin", "after_login");
 
@@ -52,7 +52,7 @@ public class FiveTestsYouTrack {
         Wait wait = new Wait();
         try {
             YouTrackLogin loginPage = new YouTrackLogin(driver);
-            loginPage.open("http://localhost:8080/");
+            open();
             DashboardPage dashboard = loginPage.login(
                     getUsername(),
                     getPassword()
@@ -60,12 +60,12 @@ public class FiveTestsYouTrack {
 
             ScreenshotUtils.capture(driver, "testFullTaskCreationFlow", "after_login");
 
-            wait.waitSeconds(driver,3);
+            wait.waitSeconds(driver, 3);
             dashboard.clickTasksButton();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             ScreenshotUtils.capture(driver, "testFullTaskCreationFlow", "tasks_page");
 
-            TaskDetailsPage taskDetails = dashboard
+            dashboard
                     .clickNewTask()
                     .enterTitle("Тестовая задача")
                     .enterDescription("Описание")
@@ -84,7 +84,7 @@ public class FiveTestsYouTrack {
 
 
         } catch (InterruptedException e) {
-            wait.waitSeconds(driver,3);
+            wait.waitSeconds(driver, 3);
             ScreenshotUtils.capture(driver, "testFullTaskCreationFlow", "INTERRUPTED");
             Assert.fail("Тест создания задачи прерван");
         } catch (Exception e) {
@@ -105,7 +105,7 @@ public class FiveTestsYouTrack {
 
         try {
             YouTrackLogin loginPage = new YouTrackLogin(driver);
-            loginPage.open("http://localhost:8080/");
+            open();
 
             ScreenshotUtils.capture(driver, "testSearch", "login_page");
 
@@ -163,7 +163,7 @@ public class FiveTestsYouTrack {
 
         try {
             YouTrackLogin loginPage = new YouTrackLogin(driver);
-            loginPage.open("http://localhost:8080/");
+            open();
 
             DashboardPage dashboard = loginPage.login(
                     getUsername(),
@@ -175,7 +175,7 @@ public class FiveTestsYouTrack {
 
             ScreenshotUtils.capture(driver, "deleteTask", "after_login");
 
-            wait.waitSeconds(driver,3);
+            wait.waitSeconds(driver, 3);
             dashboard.clickTasksButton();
             wait.waitSeconds(driver, 3);
 
@@ -193,22 +193,22 @@ public class FiveTestsYouTrack {
             ScreenshotUtils.capture(driver, "deleteTask", "task_page");
 
             issuesPage.clickPoints();
-            wait.waitSeconds(driver,3);
+            wait.waitSeconds(driver, 3);
 
             ScreenshotUtils.capture(driver, "deleteTask", "menu_opened");
 
             issuesPage.clickDel();
-            wait.waitSeconds(driver,3);
+            wait.waitSeconds(driver, 3);
 
             ScreenshotUtils.capture(driver, "deleteTask", "confirmation_dialog");
 
             issuesPage.buttonDel();
-            wait.waitSeconds(driver,3);
+            wait.waitSeconds(driver, 3);
 
             ScreenshotUtils.capture(driver, "deleteTask", "after_deletion");
 
         } catch (InterruptedException e) {
-            wait.waitSeconds(driver,3);
+            wait.waitSeconds(driver, 3);
             ScreenshotUtils.capture(driver, "deleteTask", "INTERRUPTED");
             Assert.fail("Тест был прерван");
         } catch (Exception e) {
@@ -228,7 +228,7 @@ public class FiveTestsYouTrack {
 
         try {
             YouTrackLogin loginPage = new YouTrackLogin(driver);
-            loginPage.open("http://localhost:8080/");
+            open();
 
             ScreenshotUtils.capture(driver, "testCloseTaskCreation", "login_page");
 
@@ -257,7 +257,7 @@ public class FiveTestsYouTrack {
             ScreenshotUtils.capture(driver, "testCloseTaskCreation", "form_filled");
 
             createTaskPage.clickClose();
-            wait.waitSeconds(driver,2);
+            wait.waitSeconds(driver, 2);
 
             ScreenshotUtils.capture(driver, "testCloseTaskCreation", "form_closed");
 
@@ -266,7 +266,7 @@ public class FiveTestsYouTrack {
                     "Не вернулись на предыдущую страницу после закрытия");
 
         } catch (InterruptedException e) {
-            wait.waitSeconds(driver,2);
+            wait.waitSeconds(driver, 2);
             ScreenshotUtils.capture(driver, "testCloseTaskCreation", "INTERRUPTED");
             Assert.fail("Тест прерван");
         } catch (Exception e) {

@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.base.BasePage;
 
-import javax.swing.*;
-
 
 public class DashboardPage extends BasePage {
 
@@ -18,11 +16,11 @@ public class DashboardPage extends BasePage {
         super(driver);
     }
 
-    public TasksPage clickTasksButton() throws InterruptedException {
+    public DashboardPage clickTasksButton() throws InterruptedException {
         WebElement tasksButton = waitElementIsVisible(TASKS_BUTTON);
 
         tasksButton.click();
-        return new TasksPage(driver);
+        return new DashboardPage(driver);
     }
 
     public CreateTaskPage clickNewTask() {

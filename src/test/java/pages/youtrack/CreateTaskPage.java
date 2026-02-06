@@ -33,11 +33,11 @@ public class CreateTaskPage extends BasePage {
         return this;
     }
 
-    public TaskDetailsPage clickCreate() throws InterruptedException {
+    public CreateTaskPage clickCreate() throws InterruptedException {
         WebElement webElement = waitElementIsVisible(CREATE_BUTTON);
 
         webElement.click();
-        return new TaskDetailsPage(driver);
+        return new CreateTaskPage(driver);
     }
 
     public DashboardPage clickCancel() {
@@ -45,7 +45,7 @@ public class CreateTaskPage extends BasePage {
         return new DashboardPage(driver);
     }
 
-    public TaskDetailsPage createTask(String title, String description) throws InterruptedException {
+    public CreateTaskPage createTask(String title, String description) throws InterruptedException {
         return enterTitle(title)
                 .enterDescription(description)
                 .clickCreate();
