@@ -1,12 +1,11 @@
-package pages.base;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import pages.youtrack.YouTrackLogin;
+
 import java.time.Duration;
 
 
@@ -30,8 +29,4 @@ public class BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-
-    public static String getBaseUrl() {
-        return BASE_URL;
-    }
 }

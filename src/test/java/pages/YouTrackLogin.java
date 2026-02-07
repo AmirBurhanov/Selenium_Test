@@ -1,8 +1,7 @@
-package pages.youtrack;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import pages.base.BasePage;
 
 public class YouTrackLogin extends BasePage {
 

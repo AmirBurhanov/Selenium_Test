@@ -1,10 +1,10 @@
-package pages.youtrack;
+package pages;
 
 import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import pages.base.BasePage;
+
 import java.util.List;
 
 public class SearchResultsPage extends BasePage {
@@ -18,7 +18,7 @@ public class SearchResultsPage extends BasePage {
     public boolean searchResult() {
         try {
             List<WebElement> results = driver.findElements(POSITIV_SEARCH);
-            boolean hasResults = !results.isEmpty() && results.get(0).isDisplayed();
+            boolean hasResults = !results.isEmpty() && results.getFirst().isDisplayed();
 
             // Логирование в Allure
             Allure.addAttachment("Результаты поиска",
@@ -28,7 +28,7 @@ public class SearchResultsPage extends BasePage {
 
             return hasResults;
         } catch (Exception e) {
-            Allure.addAttachment("Ошибка поиска", "Исключение: " + e.getMessage());
+            Allure.addAttachment("Ошибка поиска", STR."Исключение: \{e.getMessage()}");
             return false;
         }
     }
@@ -38,7 +38,7 @@ public class SearchResultsPage extends BasePage {
             List<WebElement> results = driver.findElements(POSITIV_SEARCH);
             if (!results.isEmpty()) {
                 Allure.addAttachment("Клик по задаче", "Кликаем по первому результату поиска");
-                results.get(0).click();
+                results.getFirst().click();
             } else {
                 Allure.addAttachment("Нет результатов", "Нечего кликать - список результатов пуст");
             }
@@ -64,7 +64,7 @@ public class SearchResultsPage extends BasePage {
         try {
             List<WebElement> results = driver.findElements(POSITIV_SEARCH);
             if (!results.isEmpty()) {
-                String text = results.get(0).getText();
+                String text = results.getFirst().getText();
                 Allure.addAttachment("Текст первого результата", text);
                 return text;
             }
