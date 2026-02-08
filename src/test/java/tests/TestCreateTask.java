@@ -1,48 +1,29 @@
 package tests;
 
-import basic.BasicActions;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.DashboardPage;
-import pages.YouTrackLogin;
-import utils.ScreenshotUtils;
-import utils.Wait;
-
+import tests.base.BaseTest;
 import java.time.Duration;
 
-import static pages.BasePage.open;
-import static utils.CsvReader.getPassword;
-import static utils.CsvReader.getUsername;
-
-public class TestCreateTask {
+public class TestCreateTask extends BaseTest {
 
     @Test
-    public void testFullTaskCreationFlow() {
-        WebDriver driver = BasicActions.createDriver();
-        Wait wait = new Wait();
+    public void testFullTaskCreationFlow() throws Exception {
         try {
-            YouTrackLogin loginPage = new YouTrackLogin(driver);
-            open();
-            DashboardPage dashboard = loginPage.login(
-                    getUsername(),
-                    getPassword()
-            );
+            captureScreenshot("testFullTaskCreationFlow", "after login");
 
-            ScreenshotUtils.capture(driver, "testFullTaskCreationFlow", "after_login");
-
-            wait.waitSeconds(driver, 3);
-            dashboard.clickTasksButton();
+            wait.waitSeconds(driver, 2);
+            dashboardPage.clickTasksButton();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            ScreenshotUtils.capture(driver, "testFullTaskCreationFlow", "tasks_page");
+            captureScreenshot("testFullTaskCreationFlow", "tasks_page");
 
-            dashboard
+            dashboardPage
                     .clickNewTask()
                     .enterTitle("Тестовая задача")
                     .enterDescription("Описание")
                     .clickCreate();
 
-            ScreenshotUtils.capture(driver, "testFullTaskCreationFlow", "after_create");
+            captureScreenshot("testFullTaskCreationFlow", "after_create");
 
             String currentUrl = driver.getCurrentUrl();
 
@@ -54,16 +35,8 @@ public class TestCreateTask {
                             currentUrl.contains("/issues/") || currentUrl.contains("/agiles/"),
                     "Не перешли на страницу созданной задачи");
 
-
-        } catch (InterruptedException e) {
-            wait.waitSeconds(driver, 3);
-            ScreenshotUtils.capture(driver, "testFullTaskCreationFlow", "INTERRUPTED");
-            Assert.fail("Тест создания задачи прерван");
         } catch (Exception e) {
-            ScreenshotUtils.capture(driver, "testFullTaskCreationFlow", "ERROR");
-            Assert.fail("Error");
-        } finally {
-            driver.quit();
+            handleTestException("testFullTaskCreationFlow", e);
         }
     }
 }

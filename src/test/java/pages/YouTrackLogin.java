@@ -12,6 +12,7 @@ public class YouTrackLogin extends BasePage {
     private final By loginInput = By.id("username");
     private final By passwordInput = By.id("password");
     private final By loginButton = By.xpath("//button[@data-test='login-button']");
+    private final By loginPageTitle = By.xpath("//span[text()='Войти в YouTrack']");
 
     public YouTrackLogin enterUsername(String username) {
         driver.findElement(loginInput).sendKeys(username);
@@ -33,4 +34,16 @@ public class YouTrackLogin extends BasePage {
                 .enterPassword(password)
                 .clickLogin();
     }
+
+    public boolean isLoginPageDisplayed() {
+        try {
+            return waitElementIsVisible(loginPageTitle).isDisplayed() &&
+                    waitElementIsVisible(loginInput).isDisplayed() &&
+                    waitElementIsVisible(loginButton).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
 }
