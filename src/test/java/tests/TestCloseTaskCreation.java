@@ -3,7 +3,6 @@ package tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CreateTaskPage;
-import tests.base.BaseTest;
 
 
 public class TestCloseTaskCreation extends BaseTest {

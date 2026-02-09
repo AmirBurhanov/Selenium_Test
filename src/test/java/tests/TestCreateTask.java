@@ -2,7 +2,7 @@ package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import tests.base.BaseTest;
+
 import java.time.Duration;
 
 public class TestCreateTask extends BaseTest {

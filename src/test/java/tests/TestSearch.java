@@ -4,7 +4,6 @@ import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.SearchResultsPage;
-import tests.base.BaseTest;
 
 public class TestSearch extends BaseTest {
     @Test

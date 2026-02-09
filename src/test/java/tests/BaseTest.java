@@ -1,4 +1,4 @@
-package tests.base;
+package tests;
 
 import basic.BasicActions;
 import org.openqa.selenium.WebDriver;

@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.IssuesPage;
 import pages.SearchResultsPage;
-import tests.base.BaseTest;
 
 public class TestDelTask extends BaseTest {
     @Test
