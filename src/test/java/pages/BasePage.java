@@ -5,20 +5,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.Wait;
 
 import java.time.Duration;
 
 
 public class BasePage {
-    protected static WebDriver driver;
+    protected  WebDriver driver;
+    protected Wait wait;
     private static final String BASE_URL = "http://localhost:8080/";
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new Wait();
     }
 
 
-    public static void open() {
+    public  void open() {
         driver.get(BASE_URL);
     }
 

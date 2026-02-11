@@ -19,7 +19,7 @@ public class DashboardPage extends BasePage {
 
     public DashboardPage clickTasksButton() throws InterruptedException {
         WebElement tasksButton = waitElementIsVisible(TASKS_BUTTON);
-
+        wait.waitSeconds(driver, 2);
         tasksButton.click();
         return new DashboardPage(driver);
     }

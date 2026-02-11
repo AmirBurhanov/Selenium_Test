@@ -20,7 +20,6 @@ public class SearchResultsPage extends BasePage {
             List<WebElement> results = driver.findElements(POSITIV_SEARCH);
             boolean hasResults = !results.isEmpty() && results.getFirst().isDisplayed();
 
-            // Логирование в Allure
             Allure.addAttachment("Результаты поиска",
                     STR."""
 Найдено элементов: \{results.size()}

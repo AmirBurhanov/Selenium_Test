@@ -4,18 +4,18 @@ import basic.BasicActions;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import pages.BasePage;
 import pages.DashboardPage;
 import pages.YouTrackLogin;
 import utils.ScreenshotUtils;
 import utils.Wait;
-
-import static pages.BasePage.open;
 import static utils.CsvReader.getPassword;
 import static utils.CsvReader.getUsername;
 
 public abstract class BaseTest {
     protected WebDriver driver;
     protected Wait wait;
+    protected BasePage basePage;
     protected DashboardPage dashboardPage;
     protected YouTrackLogin youTrackLogin;
 
@@ -27,8 +27,9 @@ public abstract class BaseTest {
     }
 
     private void login() {
+        basePage = new BasePage(driver);
         youTrackLogin = new YouTrackLogin(driver);
-        open();
+        basePage.open();
         dashboardPage = youTrackLogin.login(getUsername(), getPassword());
         wait.waitSeconds(driver, 2);
     }
@@ -45,12 +46,12 @@ public abstract class BaseTest {
     }
 
     protected void handleTestException(String testName, Exception e) throws Exception {
+
+        captureScreenshot(testName, "ERROR_" + e.getClass().getSimpleName());
+
         if (e instanceof InterruptedException) {
-            wait.waitSeconds(driver, 2);
-            captureScreenshot(testName, "INTERRUPTED");
             throw new RuntimeException("Тест прерван", e);
         } else {
-            captureScreenshot(testName, "ERROR");
             throw e;
         }
     }

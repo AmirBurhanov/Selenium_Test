@@ -11,17 +11,9 @@ public class TestSearch extends BaseTest {
         final String SEARCH_QUERY = "Тестовая задача";
 
         try {
-            captureScreenshot("testSearch", "dashboard");
-
-            wait.waitSeconds(driver, 3);
-            dashboardPage.clickTasksButton();
-
-            captureScreenshot("testSearch", "tasks_page");
-
-            wait.waitSeconds(driver, 3);
-            dashboardPage.inputSearch(SEARCH_QUERY + Keys.ENTER);
-
-            captureScreenshot("testSearch", "search_results");
+            dashboardPage
+                    .clickTasksButton()
+                    .inputSearch(SEARCH_QUERY + Keys.ENTER);
 
             SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
 
@@ -35,6 +27,7 @@ public class TestSearch extends BaseTest {
                 Assert.assertTrue(firstResult.contains(SEARCH_QUERY),
                         "Результат не содержит искомый текст");
             }
+            captureScreenshot("TestSearch", "Результат пойска");
 
         } catch (Exception e) {
             handleTestException("testSearch", e);

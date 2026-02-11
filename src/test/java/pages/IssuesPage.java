@@ -29,5 +29,11 @@ public class IssuesPage extends BasePage {
         element.click();
     }
 
+    public void deleteTask() {
+        clickPoints();
+        clickDel();
+        buttonDel();
+    }
+
 
 }
